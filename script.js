@@ -1,4 +1,4 @@
-// Load saved pricing
+// Load saved pricing from localStorage
 document.addEventListener("DOMContentLoaded", () => {
     const fields = [
         "standard_price",
@@ -18,31 +18,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// Calculate the bid
 function calculateBid() {
+    // Get pricing inputs
     const standardPrice = parseInt(document.getElementById("standard_price").value) || 0;
     const hazardPrice = parseInt(document.getElementById("hazard_price").value) || 0;
     const screenPrice = parseInt(document.getElementById("screen_price").value) || 0;
 
+    // Get job inputs
     const totalWindows = parseInt(document.getElementById("total_windows").value) || 0;
     const hazardWindows = parseInt(document.getElementById("total_hazard_windows").value) || 0;
 
-    // Total In/Out price
-    const totalInOut = totalWindows * standardPrice * 2 / 2; // same as totalWindows * standardPrice
-    // One-side price
-    const oneSidePrice = Math.round(totalWindows * standardPrice / 2);
-    // Hazard surcharge
+    // Calculations
+    const oneSidePrice = totalWindows * standardPrice;
+    const totalInOut = oneSidePrice * 2;
     const hazardSurcharge = hazardWindows * hazardPrice;
-    // Screen cleaning charge
     const screenCharge = totalWindows * screenPrice;
 
-    // Round everything to whole numbers
+    // Round values to whole numbers
     const totalInOutRounded = Math.round(totalInOut);
-    
+    const oneSideRounded = Math.round(oneSidePrice);
+    const hazardRounded = Math.round(hazardSurcharge);
+    const screenRounded = Math.round(screenCharge);
+
+    // Display results
     document.getElementById("results").innerHTML = `
         <h2>Price Breakdown</h2>
         <p><strong>Total In/Out Price:</strong> $${totalInOutRounded}</p>
-        <p><strong>One-Side Price:</strong> $${oneSidePrice}</p>
-        <p><strong>Hazard Surcharge:</strong> $${hazardSurcharge}</p>
-        <p><strong>Screen Cleaning Charge:</strong> $${screenCharge}</p>
+        <p><strong>One-Side Price:</strong> $${oneSideRounded}</p>
+        <p><strong>Hazard Surcharge:</strong> $${hazardRounded}</p>
+        <p><strong>Screen Cleaning Charge:</strong> $${screenRounded}</p>
     `;
 }
