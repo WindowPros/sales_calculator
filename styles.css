@@ -17,8 +17,15 @@ body {
     color: var(--navy);
 }
 
-/* Headings */
-h1, h2 {
+/* Main title */
+h1 {
+    text-align: center;
+    color: var(--grey);
+    margin-bottom: 10px;
+}
+
+/* Section headings */
+h2 {
     text-align: center;
     color: var(--navy);
     margin-bottom: 10px;
