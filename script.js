@@ -26,21 +26,23 @@ function calculateBid() {
     const totalWindows = parseInt(document.getElementById("total_windows").value) || 0;
     const hazardWindows = parseInt(document.getElementById("total_hazard_windows").value) || 0;
 
-    const standardWindows = Math.max(totalWindows - hazardWindows, 0);
+    // Total In/Out price
+    const totalInOut = totalWindows * standardPrice * 2 / 2; // same as totalWindows * standardPrice
+    // One-side price
+    const oneSidePrice = Math.round(totalWindows * standardPrice / 2);
+    // Hazard surcharge
+    const hazardSurcharge = hazardWindows * hazardPrice;
+    // Screen cleaning charge
+    const screenCharge = totalWindows * screenPrice;
 
-    const standardTotal = standardWindows * standardPrice;
-    const hazardTotal = hazardWindows * hazardPrice;
-    const screenTotal = totalWindows * screenPrice;
-
-    const total = standardTotal + hazardTotal + screenTotal;
-
+    // Round everything to whole numbers
+    const totalInOutRounded = Math.round(totalInOut);
+    
     document.getElementById("results").innerHTML = `
         <h2>Price Breakdown</h2>
-        <p><strong>Total Price:</strong> $${total}</p>
-        <ul>
-            <li>Standard windows: $${standardTotal}</li>
-            <li>Hazard windows: $${hazardTotal}</li>
-            <li>Screens: $${screenTotal}</li>
-        </ul>
+        <p><strong>Total In/Out Price:</strong> $${totalInOutRounded}</p>
+        <p><strong>One-Side Price:</strong> $${oneSidePrice}</p>
+        <p><strong>Hazard Surcharge:</strong> $${hazardSurcharge}</p>
+        <p><strong>Screen Cleaning Charge:</strong> $${screenCharge}</p>
     `;
 }
