@@ -35,11 +35,17 @@ function calculateBid() {
     const hazardSurcharge = hazardWindows * hazardPrice;
     const screenCharge = totalWindows * screenPrice;
 
+    // New totals
+    const totalWindowPrice = totalInOut + hazardSurcharge; // Total In/Out + Hazard
+    const totalPlusScreens = totalWindowPrice + screenCharge; // Add screen cleaning
+
     // Round values to whole numbers
     const totalInOutRounded = Math.round(totalInOut);
     const oneSideRounded = Math.round(oneSidePrice);
     const hazardRounded = Math.round(hazardSurcharge);
     const screenRounded = Math.round(screenCharge);
+    const totalWindowRounded = Math.round(totalWindowPrice);
+    const totalPlusScreensRounded = Math.round(totalPlusScreens);
 
     // Display results
     document.getElementById("results").innerHTML = `
@@ -48,5 +54,7 @@ function calculateBid() {
         <p><strong>One-Side Price:</strong> $${oneSideRounded}</p>
         <p><strong>Hazard Surcharge:</strong> $${hazardRounded}</p>
         <p><strong>Screen Cleaning Charge:</strong> $${screenRounded}</p>
+        <p><strong>Total Window Price:</strong> $${totalWindowRounded}</p>
+        <p><strong>Total Plus Screens:</strong> $${totalPlusScreensRounded}</p>
     `;
 }
